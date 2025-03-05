@@ -1,0 +1,28 @@
+@model FernandoLibrary.Persistance.Entities.Categoria
+
+@{
+ViewData["Title"] = "Eliminar Categoría";
+Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <h1 class="display-4">Eliminar Categoría</h1>
+
+    <div class="alert alert-warning" role="alert">
+        <h4>¿Estás seguro de que deseas eliminar la categoría <strong>@Model.Nombre</strong>?</h4>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash"></i> Eliminar
+        </button>
+        <a class="btn btn-secondary" href="@Url.Action("Index")">
+            <i class="fas fa-times"></i> Cancelar
+        </a>
+    </form>
+</div>
+
+@section Scripts {
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+}

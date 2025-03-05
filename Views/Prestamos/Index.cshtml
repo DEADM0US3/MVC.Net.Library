@@ -1,0 +1,83 @@
+@model IEnumerable<FernandoLibrary.Persistance.Entities.Prestamo>
+
+@{
+    ViewData["Title"] = "Préstamos";
+}
+
+<div class="container mt-4">
+    <h1 class="display-4">Préstamos</h1>
+
+    <!-- Formulario de búsqueda -->
+    <form asp-action="Index" method="get" class="form-inline mb-4">
+        <div class="input-group">
+            <input type="text" name="searchString" value="@ViewData["SearchString"]" class="form-control" placeholder="Buscar por usuario o libro" />
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-sync-alt"></i> Limpiar
+                </a>
+            </div>
+        </div>
+    </form>
+
+    <!-- Botones para acciones y filtros -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <a asp-action="Prestar" class="btn btn-success">
+                <i class="fas fa-book"></i> Prestar Libro
+            </a>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-primary mr-2">
+                <i class="fas fa-list"></i> Todos
+            </a>
+            <a asp-action="Prestados" class="btn btn-outline-primary mr-2">
+                <i class="fas fa-clock"></i> Préstamos Activos
+            </a>
+            <a asp-action="Devueltos" class="btn btn-outline-primary">
+                <i class="fas fa-check"></i> Préstamos Devueltos
+            </a>
+        </div>
+    </div>
+
+    <!-- Tabla de préstamos -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Libro</th>
+                    <th>Usuario</th>
+                    <th>Fecha de Préstamo</th>
+                    <th>Fecha de Devolución</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var prestamo in Model)
+                {
+                    <tr>
+                        <td>@prestamo.Libro.Titulo</td>
+                        <td>@prestamo.Usuario.Nombre</td>
+                        <td>@prestamo.FechaPrestamo.ToShortDateString()</td>
+                        <td>@(prestamo.FechaDevolucion?.ToShortDateString() ?? "No devuelto")</td>
+                        <td>
+                            @if (prestamo.FechaDevolucion == null)
+                            {
+                                <a asp-action="Devolver" asp-route-id="@prestamo.Id" class="btn btn-sm btn-success">
+                                    <i class="fas fa-undo"></i> Devolver
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Font Awesome para íconos -->
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+}

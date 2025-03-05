@@ -1,0 +1,47 @@
+@model FernandoLibrary.Persistance.Entities.Prestamo
+@using FernandoLibrary.Persistance.Entities
+
+@{
+    ViewData["Title"] = "Prestar Libro";
+}
+
+<div class="container mt-4">
+    <h1 class="display-4">Prestar Libro</h1>
+
+    <form asp-action="Prestar" class="mt-4">
+        <div class="form-group">
+            <label asp-for="LibroId" class="control-label">Libro</label>
+            <select asp-for="LibroId" class="form-control">
+                <option value="">Seleccione un libro</option>
+                @foreach (var libro in ViewBag.Libros as List<Libro>)
+                {
+                    <option value="@libro.Id">@libro.Titulo</option>
+                }
+            </select>
+            <span asp-validation-for="LibroId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UsuarioId" class="control-label">Usuario</label>
+            <select asp-for="UsuarioId" class="form-control">
+                <option value="">Seleccione un usuario</option>
+                @foreach (var usuario in ViewBag.Usuarios as List<Usuario>)
+                {
+                    <option value="@usuario.Id">@usuario.Nombre</option>
+                }
+            </select>
+            <span asp-validation-for="UsuarioId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-book"></i> Prestar
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+}

@@ -1,0 +1,230 @@
+
+
+# El siguiente comando funciona para descargar cuando se usa Git para Windows:
+# curl -LOf http://gist.githubusercontent.com/kmorcinek/2710267/raw/.gitignore
+#
+# Descargue este archivo usando PowerShell v3 en Windows con el siguiente comando:
+# Invocar-WebRequest https://gist.githubusercontent.com/kmorcinek/2710267/raw/ -OutFile .gitignore
+#
+# o wget:
+# wget --no-check-certificate http://gist.githubusercontent.com/kmorcinek/2710267/raw/.gitignore
+
+# Archivos específicos del usuario
+*.suo
+*.usuario
+*.sln.docstates
+
+# Generar resultados
+[Dd]error/
+[Rr]liberar/
+x64/
+[Bb]en/
+[Oo]bj/
+# La carpeta de compilación se utiliza actualmente para scripts de compilación y no debe ignorarse
+#construir/
+
+# Paquetes NuGet
+*.nupkg
+# La carpeta de paquetes se puede ignorar debido a la Restauración de paquetes
+**/paquetes/*
+# excepto build/, que se utiliza como un destino de MSBuild.
+!**/paquetes/compilación/
+# Descomente si es necesario, pero generalmente se regenerará cuando sea necesario.
+#!**/paquetes/repositorios.config
+
+Resultados de la prueba MSTest
+[Tt]est[Rr]esultado*/
+[Bb]uild[L]og.*
+
+*_i.c
+*_ordenador personal
+*.semilla
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.registro
+*.vspscc
+*.vssscc
+.construcciones
+*.pidb
+*.scc
+
+# Archivos de caché de Visual C++
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.archivo caché
+
+# Perfilador de Visual Studio
+*.psess
+*.vsp
+*.vspx
+
+# Kit de herramientas de automatización de orientación
+*.gpState
+
+# ReSharper es un complemento de codificación .NET
+_ReSharper*/
+*.[Rr]e[Ss]arpista
+
+# TeamCity es un complemento de compilación
+_Equipo Ciudad*
+
+# DotCover es una herramienta de cobertura de código
+*.puntoCubierta
+
+#Correr NC
+*.crujido*
+.*crunch*.local.xml
+
+# Carpeta de salida de Installshield
+[Ee]xpress/
+
+# DocProject es un complemento generador de documentación
+ProyectoDoc/buildhelp/
+DocProject/Ayuda/*.HxT
+DocProject/Ayuda/*.HxC
+DocProject/Ayuda/*.hhc
+DocProject/Ayuda/*.hhk
+DocProject/Ayuda/*.hhp
+DocProject/Ayuda/Html2
+DocProject/Ayuda/html
+
+# Directorio de un solo clic
+publicar/
+
+# Publicar salida web
+*.Publicar.xml
+
+# Salida de compilación de Windows Azure
+csx
+*.build.csdef
+
+# Directorio de paquetes de aplicaciones de la Tienda Windows
+Paquetes de aplicaciones/
+
+# Otros
+*.Cache
+ClienteBin/
+[Ss]estilo[Cc]op.*
+~$*
+*~
+*.dbmdl
+*.[Pp]ublish.xml
+*.pfx
+*.configuraciones de publicación
+módulosbin/
+temperatura bin/
+
+# Archivo del sitio EPiServer (VPP)
+Datos de aplicación/
+
+# Proyectos RIA/Silverlight
+Código generado/
+
+# Copia de seguridad y archivos de informes de la conversión de un archivo de proyecto antiguo a uno más nuevo
+# Versión de Visual Studio. No se necesitan archivos de respaldo porque tenemos git ;-)
+_Archivos de informe de actualización/
+Respaldo*/
+Registro de actualización*.XML
+Registro de actualización*.htm
+
+#vim
+*.txt~
+*.swp
+*.swo
+
+# Archivos temporales al abrir LibreOffice en Ubuntu
+.~bloqueo.*
+ 
+#svn
+.svn
+
+# CVS - Control de código fuente
+**/CVS/
+
+# Restos de la resolución de conflictos en Source Control
+*.orig
+
+# Archivos de SQL Server
+**/Datos_de_aplicación/*.mdf
+**/Datos de aplicación/*.ldf
+**/Datos_de_aplicación/*.sdf
+
+
+Archivos generados por #LightSwitch
+ArtefactosGenerados/
+_Extensiones privadas/
+ModeloManifest.xml
+
+# =========================
+# Detritos de Windows
+# =========================
+
+# Cachés de archivos de imagen de Windows
+Pulgares.db
+ehthumbs.db
+
+# Archivo de configuración de carpeta
+Escritorio.ini
+
+# Papelera de reciclaje utilizada en recursos compartidos de archivos
+$PAPELETO DE RECICLAJE/
+
+# Archivos generados por el sistema operativo #
+¿Icono?
+
+# Archivos de la tienda de servicios de escritorio de Mac
+Tienda .DS_Store
+
+# Caché del compilador SASS
+.sass-caché
+
+# Visual Studio 2014 CTP
+**/*.sln.ide
+
+# Visual Studio algo temporal
+.vs/
+
+# cosas de dotnet
+proyecto.lock.json
+
+# VS 2015+
+*.vc.vc.opendb
+*.vc.db
+
+# Jinete
+.idea/
+
+# Código de Visual Studio
+.vscode/
+
+# Carpeta de salida utilizada por Webpack u otras cosas de FE
+**/módulos_de_nodo/*
+**/wwwroot/*
+
+# Específico de SpecFlow
+*.feature.cs
+*.característica.xlsx.*
+*.Especificaciones_*.html
+
+# Proyectos UWP
+Paquetes de aplicaciones/
+
+#####
+# Fin de la lista principal de ignorados, a continuación coloque sus configuraciones personalizadas "por proyecto" (patrones o ruta)
+#####
+
+

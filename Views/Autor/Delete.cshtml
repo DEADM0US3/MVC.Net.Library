@@ -1,0 +1,29 @@
+@model FernandoLibrary.Persistance.Entities.Autor
+
+@{
+    ViewData["Title"] = "Eliminar Autor";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <h1 class="display-4">Eliminar Autor</h1>
+
+    <div class="alert alert-warning" role="alert">
+        <h4>¿Estás seguro de que deseas eliminar este autor?</h4>
+        <p><strong>@Model.Nombre</strong></p>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash"></i> Eliminar
+        </button>
+        <a href="@Url.Action("Index", "Autor")" class="btn btn-secondary">
+            <i class="fas fa-times"></i> Cancelar
+        </a>
+    </form>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+}
