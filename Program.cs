@@ -1,3 +1,5 @@
+using FernandoLibrary;
+using FernandoLibrary.Middleware;
 using FernandoLibrary.Persistance;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,28 +8,42 @@ var builder = WebApplication.CreateBuilder(args);
 // Agregar servicios al contenedor
 builder.Services.AddControllersWithViews();
 
-// 🔹 Agregar DbContext ANTES de `builder.Build();`
 builder.Services.AddDbContext<LibraryDbContext>(options =>
     options.UseSqlite("Data Source=library.db"));
 
-var app = builder.Build(); // ⬅ Aquí se sella el contenedor de servicios
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); 
+    options.Cookie.HttpOnly = true; 
+    options.Cookie.IsEssential = true; 
+});
 
-// Configuración del pipeline de middleware
+builder.Services.AddVortexUserConfig(builder.Configuration);
+
+var app = builder.Build(); 
+
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    app.UseExceptionHandler("/Home/Error"); 
+    app.UseHsts(); 
 }
 
-app.UseHttpsRedirection();
-app.UseRouting();
+app.UseHttpsRedirection(); 
+app.UseStaticFiles(); 
+
+app.UseAuthentication();  
 app.UseAuthorization();
 
-app.MapStaticAssets();
+app.UseRouting(); 
+
+app.UseSession();
+
+app.UseMiddleware<AuthenticationMiddleware>();
+
+app.UseAuthorization(); 
 
 app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

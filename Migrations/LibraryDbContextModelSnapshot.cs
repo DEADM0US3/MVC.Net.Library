@@ -17,7 +17,7 @@ namespace FernandoLibrary.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.2");
 
-            modelBuilder.Entity("Autor", b =>
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Autor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,7 +32,7 @@ namespace FernandoLibrary.Migrations
                     b.ToTable("Autores");
                 });
 
-            modelBuilder.Entity("Categoria", b =>
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Categoria", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace FernandoLibrary.Migrations
                     b.ToTable("Categorias");
                 });
 
-            modelBuilder.Entity("Libro", b =>
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Libro", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,7 +75,47 @@ namespace FernandoLibrary.Migrations
                     b.ToTable("Libros");
                 });
 
-            modelBuilder.Entity("Prestamo", b =>
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Permissions", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("DeletedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDisable")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
+                });
+
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Prestamo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +142,78 @@ namespace FernandoLibrary.Migrations
                     b.ToTable("Prestamos");
                 });
 
-            modelBuilder.Entity("Usuario", b =>
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.RolePermissions", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PermissionsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RolesId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PermissionId");
+
+                    b.HasIndex("PermissionsId");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("RolesId");
+
+                    b.ToTable("RolePermissions");
+                });
+
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Roles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("DeletedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDisable")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.PrimitiveCollection<string>("PermissionId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,24 +223,41 @@ namespace FernandoLibrary.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("Libro", b =>
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Libro", b =>
                 {
-                    b.HasOne("Autor", "Autor")
+                    b.HasOne("FernandoLibrary.Persistance.Entities.Autor", "Autor")
                         .WithMany("Libros")
                         .HasForeignKey("AutorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Categoria", "Categoria")
+                    b.HasOne("FernandoLibrary.Persistance.Entities.Categoria", "Categoria")
                         .WithMany("Libros")
                         .HasForeignKey("CategoriaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -140,15 +268,15 @@ namespace FernandoLibrary.Migrations
                     b.Navigation("Categoria");
                 });
 
-            modelBuilder.Entity("Prestamo", b =>
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Prestamo", b =>
                 {
-                    b.HasOne("Libro", "Libro")
+                    b.HasOne("FernandoLibrary.Persistance.Entities.Libro", "Libro")
                         .WithMany("Prestamos")
                         .HasForeignKey("LibroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Usuario", "Usuario")
+                    b.HasOne("FernandoLibrary.Persistance.Entities.Usuario", "Usuario")
                         .WithMany("Prestamos")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -159,22 +287,62 @@ namespace FernandoLibrary.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("Autor", b =>
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.RolePermissions", b =>
+                {
+                    b.HasOne("FernandoLibrary.Persistance.Entities.Permissions", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FernandoLibrary.Persistance.Entities.Permissions", "Permissions")
+                        .WithMany()
+                        .HasForeignKey("PermissionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FernandoLibrary.Persistance.Entities.Roles", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FernandoLibrary.Persistance.Entities.Roles", "Roles")
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permissions");
+
+                    b.Navigation("Roles");
+                });
+
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Usuario", b =>
+                {
+                    b.HasOne("FernandoLibrary.Persistance.Entities.Roles", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Autor", b =>
                 {
                     b.Navigation("Libros");
                 });
 
-            modelBuilder.Entity("Categoria", b =>
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Categoria", b =>
                 {
                     b.Navigation("Libros");
                 });
 
-            modelBuilder.Entity("Libro", b =>
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Libro", b =>
                 {
                     b.Navigation("Prestamos");
                 });
 
-            modelBuilder.Entity("Usuario", b =>
+            modelBuilder.Entity("FernandoLibrary.Persistance.Entities.Usuario", b =>
                 {
                     b.Navigation("Prestamos");
                 });

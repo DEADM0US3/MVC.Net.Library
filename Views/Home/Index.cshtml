@@ -2,7 +2,106 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <h1 class="display-4">Dashboard</h1>
+
+    <!-- Acciones rápidas -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <a asp-controller="Prestamos" asp-action="Prestar" class="btn btn-success btn-block">
+                <i class="fas fa-book"></i> Prestar Libro
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a asp-controller="Libros" asp-action="Index" class="btn btn-primary btn-block">
+                <i class="fas fa-book-open"></i> Ver Libros
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a asp-controller="Usuarios" asp-action="Index" class="btn btn-info btn-block">
+                <i class="fas fa-users"></i> Ver Usuarios
+            </a>
+        </div>
+    </div>
+
+    <!-- Libros Prestados -->
+    <div class="card mb-4">
+        <div class="card-header bg-warning text-white">
+            <h5 class="card-title mb-0">
+                <i class="fas fa-book"></i> Libros Prestados
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.LibrosPrestados.Count == 0)
+            {
+                <p class="text-muted">No hay libros prestados actualmente.</p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Libro</th>
+                                <th>Usuario</th>
+                                <th>Fecha de Préstamo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var prestamo in ViewBag.LibrosPrestados)
+                            {
+                                <tr>
+                                    <td>@prestamo.Libro.Titulo</td>
+                                    <td>@prestamo.Usuario.Nombre</td>
+                                    <td>@prestamo.FechaPrestamo.ToShortDateString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Libros Disponibles -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="card-title mb-0">
+                <i class="fas fa-book"></i> Libros Disponibles
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.LibrosDisponibles.Count == 0)
+            {
+                <p class="text-muted">No hay libros disponibles actualmente.</p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Libro</th>
+                                <th>Disponibles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var libro in ViewBag.LibrosDisponibles)
+                            {
+                                <tr>
+                                    <td>@libro.Titulo</td>
+                                    <td>@(libro.Cantidad - libro.Prestados)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
 </div>
+
+<!-- Font Awesome para íconos -->
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+}

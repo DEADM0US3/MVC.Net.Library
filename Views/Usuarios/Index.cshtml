@@ -1,66 +1,73 @@
-@model List<FernandoLibrary.Persistance.Entities.Usuario>
+@model IEnumerable<FernandoLibrary.Persistance.Entities.Usuario>
 
 @{
-    ViewData["Title"] = "Usuarios";
-    Layout = "_Layout";
+ViewData["Title"] = "Usuarios";
 }
 
 <div class="container mt-4">
     <h1 class="display-4">Usuarios</h1>
 
-    <form asp-action="Index" method="get" class="form-inline mb-4">
-        <div class="input-group">
-            <input type="text" name="searchString" value="@ViewData["SearchString"]" class="form-control" placeholder="Buscar por nombre o email" />
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i> Buscar
-                </button>
-                <a asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-sync-alt"></i> Limpiar
-                </a>
-            </div>
-        </div>
-    </form>
-
-    <div class="mb-4">
-        <a href="@Url.Action("Create", "Usuarios")" class="btn btn-success">
-            <i class="fas fa-plus"></i> Agregar Usuario
+    <p>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="fas fa-plus"></i> Crear Nuevo Usuario
         </a>
-    </div>
+    </p>
 
-    <!-- Tabla de usuarios -->
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead class="thead-dark">
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Acciones</th>
-                </tr>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Usuario</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var usuario in Model)
-                {
-                    <tr>
-                        <td>@usuario.Id</td>
-                        <td>@usuario.Nombre</td>
-                        <td>@usuario.Email</td>
-                        <td>
-                            <a href="@Url.Action("Edit", "Usuarios", new { id = usuario.Id })" class="btn btn-primary btn-sm">
-                                <i class="fas fa-edit"></i> Editar
-                            </a>
-                            <a href="@Url.Action("Delete", "Usuarios", new { id = usuario.Id })" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i> Eliminar
-                            </a>
-                        </td>
-                    </tr>
-                }
+            @foreach (var usuario in Model)
+            {
+            <tr>
+                <td>@usuario.Nombre</td>
+                <td>@usuario.LastName</td>
+                <td>@usuario.UserName</td>
+                <td>@usuario.Email</td>
+                <td>    @if (usuario.RoleId == 1)
+                    {
+                        @if (usuario.Id == 2)
+                        {
+                            <span>Admin</span>
+                        }
+                        else
+                        {
+                            <span>Trabajador</span>
+                        }
+                    }
+                    else
+                    {
+                        <span>Usuario</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@usuario.Id" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <a asp-action="Details" asp-route-id="@usuario.Id" class="btn btn-info btn-sm">
+                        <i class="fas fa-info-circle"></i> Detalles
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@usuario.Id" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </a>
+                </td>
+            </tr>
+            }
             </tbody>
         </table>
     </div>
 </div>
 
+<!-- Font Awesome para íconos -->
 @section Scripts {
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 }

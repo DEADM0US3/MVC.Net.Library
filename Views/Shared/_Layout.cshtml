@@ -45,7 +45,6 @@
 </head>
 <body>
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
@@ -75,10 +74,15 @@
                 <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Autor" asp-action="Index"><i class="fas fa-user-edit"></i> Autores</a>
                 </li>
+                <!-- Agregar el enlace de Logout -->
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger text-white" href="/Autenticacion/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
+
 
 <!-- Contenido Principal -->
 <div class="container mt-4" style="min-height: 100vh"> 
